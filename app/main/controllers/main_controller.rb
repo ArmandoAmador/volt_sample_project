@@ -1,12 +1,15 @@
 # By default Volt generates this controller for your Main component
 module Main
   class MainController < Volt::ModelController
-    def index
-      # Add code for when the index view is loaded
+
+    def add_post
+      page._posts << { title: page._new_post._title, content: page._new_post._content}
+      page._new_post._title = ''
+      page._new_post._content = ''
     end
 
-    def about
-      # Add code for when the about view is loaded
+    def current_post
+      page._posts[(params._index || 0).to_i]
     end
 
     private

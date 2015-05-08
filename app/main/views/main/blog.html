@@ -1,0 +1,46 @@
+<:Title>
+  Blog
+
+<:Body>
+  <div class="row">
+    <div class="col-md-12">
+
+      <h1>New Post</h1>
+
+      <form e-submit="add_post" role="form">
+        <div class="form-group">
+          <label>Title</label>
+          <input class="form-control" type="text" value="{{page._new_post!._title}}">
+          <label>Content</label>
+          <textarea value="{{page._new_post!._content}}" class="form-control" rows="5"></textarea>
+          <input type="submit" value="Create Post" />
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Blog Post</h2>
+      <table class="blog-table">
+        {{page._posts.each_with_index do |post, index| }}
+          <tr e-click="params._index = index"
+              class="{{ if (params._index || 0).to_i == index }}selected{{ end }}">
+            <td>{{ post._title }}</td>
+            <td><button e-click="post.destroy">X</button></td>
+          </tr>
+        {{ end }}
+      </table>
+    </div>
+
+
+    <div class="col-md-8">
+      {{ if current_post }}
+        <h2>{{ current_post._title }}</h2>
+
+        <textarea class="form-control" rows="5" id="comment">{{ current_post._content }}</textarea>
+      {{ end }}
+    </div>
+  </div>
+
+
